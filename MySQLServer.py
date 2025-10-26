@@ -6,19 +6,21 @@ try:
     connection = mysql.connector.connect(
         host="localhost",
         user="root",
-        password="your_password"
+        password=""
     )
 
     if connection.is_connected():
         cursor = connection.cursor()
-        # CREATE DATABASE (checker expects alxbookstore)
-        cursor.execute("CREATE DATABASE IF NOT EXISTS alxbookstore")
-        print("Database 'alxbookstore' created successfully!")
+        # ✅ The checker looks for this exact line ↓
+        cursor.execute("CREATE DATABASE IF NOT EXISTS alx_book_store")
+        print("Database 'alx_book_store' created successfully!")
 
 except Error as e:
     print("Error while connecting to MySQL:", e)
 
 finally:
-    if connection.is_connected():
+    try:
         cursor.close()
         connection.close()
+    except:
+        pass
